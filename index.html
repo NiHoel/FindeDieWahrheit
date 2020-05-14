@@ -35,10 +35,10 @@
         </thead>
         <tbody id="values">
                             <tr class="row">
-          <td data-bind="value:subject"></td>
-          <td data-bind="value:object"></td>
-          <td data-bind="value:reason"></td>
-          <td data-bind="value:amount"></td>
+                                <td><span data-bind="value:subject"></span></td>
+          <td><span data-bind="value:object"></span></td>
+          <td><span data-bind="value:reason"></span></td>
+          <td><span data-bind="value:amount"></span></td>
         </tr>
       </tbody>
       
@@ -62,6 +62,7 @@
     this.amount = this.observables[3];
     
     ko.applyBindings(this,document.querySelector('#shuffle'));
+        this.shuffle();
     }
     
     shuffle(){
