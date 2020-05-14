@@ -91,9 +91,10 @@ function processData(allText) {
 
 for (var i=1; i<allTextLines.length; i++) {
         var data = allTextLines[i].split(',');
-        for(var entry of data){
+        for (var j=0; j<data.length; j++) {
+            var entry = data[j]
         if(entry && entry.length){
-           entries[i].push(entry);
+           entries[j].push(entry);
         }
         }
 
