@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Sauerbraten95">
+    <title>Anno 1800 Calculator</title>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstrap-notify.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+</head>
+<body>
+    <div id="shuffle">
+      <table class="table">
+                        
+        <thead>
+        <tr>
+          <th>Wer</th>
+          <th>Was</th>
+          <th>Weshalb</th>
+          <th>Wie viel</th>
+          </tr>
+        </thead>
+        <tbody id="values">
+                            <tr class="row">
+          <td data-bind="value:subject"></td>
+          <td data-bind="value:object"></td>
+          <td data-bind="value:reason"></td>
+          <td data-bind="value:amount"></td>
+        </tr>
+      </tbody>
+      
+      <button data-bind="click: shuffle" class="btn btn-primary">Shuffle</button>
+    </div>
+    
+    <script>
+    class shuffle{
+    constructor(entries)
+    {
+    this.entries = entries;
+    this.observables = [
+    ko.observable(""),
+    ko.observable(""),
+    ko.observable(""),
+    ko.observable(""),
+    ];
+    this.subject = this.observables[0];
+    this.object = this.observables[1];
+    this.reason = this.observables[2];
+    this.amount = this.observables[3];
+    
+    ko.applyBindings(document.querySelector('#shuffle'), this);
+    }
+    
+    shuffle(){
+    var i = 0;
+      for(var col of this.entries){
+        this.observables[i++](col[Math.floor(Math.random() * col.length)]);
+       
+      }
+    }
+    
+    };
+    
+      $(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "diceSides.csv",
+        dataType: "text",
+        success: function(data) {processData(data);}
+     });
+});
+
+function processData(allText) {
+    var allTextLines = allText.split(/\r\n|\n/);
+    var record_num = allTextLines[0].split(',').length;
+    var entries = allTextLines[0].split(',').map(() => []);
+
+
+for (var i=1; i<allTextLines.length; i++) {
+        var data = allTextLines[i].split(',');
+        for(var entry of data){
+        if(entry && entry.length){
+           entries[i].push(entry);
+        }
+
+    }
+    
+   this.shuffler = new shuffle(entries);
+}
+    </script>
+</body>
+</html>
