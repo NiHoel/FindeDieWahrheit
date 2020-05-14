@@ -25,15 +25,16 @@
       <table class="table">
                         
         <thead>
-        <tr>
-          <th>Wer</th>
+
+          <tr>
+              <th>Wer</th>
           <th>Was</th>
           <th>Weshalb</th>
           <th>Wie viel</th>
-          </tr>
+            </th>
         </thead>
         <tbody id="values">
-                            <tr class="row">
+                            <tr>
                                 <td><span data-bind="text:subject"></span></td>
           <td><span data-bind="text:object"></span></td>
           <td><span data-bind="text:reason"></span></td>
@@ -57,8 +58,8 @@
     ];
     this.subject = this.observables[0];
     this.object = this.observables[1];
-    this.reason = this.observables[2];
-    this.amount = this.observables[3];
+    this.amount = this.observables[2];
+    this.reason = this.observables[3];
     
     ko.applyBindings(this,document.querySelector('#shuffle'));
         this.shuffle();
